@@ -1,0 +1,14 @@
+/* className 속성이 App인 요소에 대하여 글자를 좌측 정렬하고, 마진을 10픽셀로 지정
+아래쪽 마진은 20픽셀로 지정*/
+.App{
+    text-align: left;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px auto 10px auto ;   /*시계방향*/
+}
