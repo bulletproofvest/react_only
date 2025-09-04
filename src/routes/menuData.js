@@ -22,6 +22,7 @@ export const menuData = [
             { path: '/file_separator', label: '파일 분리' },
             { path: '/use_props', label: 'props 사용' },
             { path: '/array_and_table_01', label: '테이블 만들기 01' },
+            { path: '/array_and_table_02', label: '테이블 만들기 02' },
         ]
     },
     // 여기에 4장, 5장 .. 내용을 계속 추가함

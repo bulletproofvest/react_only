@@ -16,7 +16,7 @@ function App() {
             <td>{bread.name}</td>
             <td>
                 <img src={`http://localhost:3000/${bread.image}`} />
-                {bread.image}</td>
+            </td>
             <td>{bread.description}</td>
 
         </tr>
