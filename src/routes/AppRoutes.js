@@ -1,7 +1,7 @@
 // 'react-router-dom'은 라우팅을 위한 라이브러리
 // 기본으로 설치가 안되어 있으니, 차후 설치 필요
 // npm install react-router-dom 엔터
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // ch02 장
 // 기호 .는 현재폴더, .. 는 상위 폴더, /는 폴더 구분자
@@ -17,22 +17,30 @@ import AppSpreadOperator from './../components/ch02.es6_syntax/spread_operator';
 import AppClassComponent from './../components/ch03.component/components01';
 import AppFunctionComponent from './../components/ch03.component/components02';
 import AppComponentSeparate from './../components/ch03.component/component_separate';
+import AppFileSeparator from './../components/ch03.component/file_separator';
+import AppUseProps from './../components/ch03.component/use_props';
+import AppMakeTable01 from './../components/ch03.component/array_and_table_01';
 
-function AppRoutes(){
-    return(
+function AppRoutes() {
+    return (
         <Routes>
             {/* element 속성에는 컴포넌트 자체가 아니라 JSX요소를 넣어야 함 */}
-            <Route path='let_const' element={<AppLetConst />} />
-            <Route path='template_string' element={<AppTemplateString />} />
-            <Route path='make_subject_list' element={<AppSubjectList />} />
-            <Route path='make_function' element={<AppMakeFunction />} />
-            <Route path='arrow_function' element={<AppArrowFunction />} />
-            <Route path='array_map' element={<AppArrayMap />} />
-            <Route path='spread_operator' element={<AppSpreadOperator />} />
+            <Route path='/' element={<AppLetConst />} />
 
-            <Route path='components01' element={<AppClassComponent />} />
-            <Route path='components02' element={<AppFunctionComponent />} />
-            <Route path='component_separate' element={<AppComponentSeparate />} />
+            <Route path='/let_const' element={<AppLetConst />} />
+            <Route path='/template_string' element={<AppTemplateString />} />
+            <Route path='/make_subject_list' element={<AppSubjectList />} />
+            <Route path='/make_function' element={<AppMakeFunction />} />
+            <Route path='/arrow_function' element={<AppArrowFunction />} />
+            <Route path='/array_map' element={<AppArrayMap />} />
+            <Route path='/spread_operator' element={<AppSpreadOperator />} />
+
+            <Route path='/components01' element={<AppClassComponent />} />
+            <Route path='/components02' element={<AppFunctionComponent />} />
+            <Route path='/component_separate' element={<AppComponentSeparate />} />
+            <Route path='/file_separator' element={<AppFileSeparator />} />
+            <Route path='/use_props' element={<AppUseProps />} />
+            <Route path='/array_and_table_01' element={<AppMakeTable01 />} />
         </Routes>
     );
 };
