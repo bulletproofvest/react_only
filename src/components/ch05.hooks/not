@@ -1,0 +1,17 @@
+import { useState } from "react";   // react에서 사용하는 useState를 가져오기 위한 import 
+// useState : 컴포넌트 내부에서 데이터를 저장하고 업데이트할 수 있도록 함
+
+function App() {
+    const [count, setCount] = useState(0); // 초기값(0)인 상태 선언
+    // [상태값, 상태를 변경하는 함수] : 상태를 업데이트할 때 사용하는 함수
+
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>증가</button>
+            <button onClick={() => setCount(count - 1)}>감소</button>
+        </div>
+    );
+
+} 

@@ -54,9 +54,9 @@ function App() {
 
     const breadList = [
         { name: "프렌치 바게트", image: "/french_baguette_03.png" },
-        { name: "크루아상", image: "/french_baguette_03.png" },
-        { name: "치아바타", image: "/french_baguette_03.png" },
-        { name: "브리오슈", image: "/french_baguette_03.png" }
+        { name: "크루아상", image: "/croissant_03.png" },
+        { name: "치아바타", image: "/ciabatta_03.png" },
+        { name: "브리오슈", image: "/brioche_03.png" }
     ]
 
 
