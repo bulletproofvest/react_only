@@ -42,6 +42,17 @@ export const menuData = [
             { path: '/use_state_01', label: '스테이트 연습 01' },
             { path: '/use_state_02', label: '스테이트 연습 02' },
             { path: '/use_state_03', label: '스테이트 연습 03' },
+            { path: '/use_state_04', label: '스테이트 연습 04' },
+            { path: '/use_effect_01', label: '유저 이펙스 01' },
+            { path: '/use_effect_02', label: '유저 이펙스 02' },
+            { path: '/use_effect_03', label: '유저 이펙스 03' },
+        ]
+    },
+    {
+        chapter: "ch06. IT Cafe",
+        items: [
+            { path: '/coffee_bread_01', label: 'IT Cafe 01' },
+            { path: '/coffee_bread_02', label: 'IT Cafe 02' },
         ]
     },
 

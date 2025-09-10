@@ -4,6 +4,7 @@ import './index.css';
 import App from './App'; // App.js 파일을 의미 
 // import App from './components/ch02.es6_syntax/let_const';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // 리액트 라우터를 사용하기 위해서 VrewoserRouter를 App 외부에 감싸주는 역할 
