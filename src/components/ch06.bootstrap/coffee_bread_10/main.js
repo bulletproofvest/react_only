@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import Top from './ui/Top';
 import Content from './ui/Content';
 import Bottom from './ui/Bottom';
+import Switcher from './ui/Switcher';
 
 // improt 한 파일이 비어있으면 react가 컴포넌트로 인식 못 함 -> 최소한의 유효한 컴포넌트 구조 필요 
 
@@ -21,11 +22,20 @@ function App() {
     ])
 
     const [mode, setMode] = useState('');
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedId, setSelectedId] = useState(1);
+
+    const getProductById = () => {
+        const selectedProduct = products.filter((bean) => bean.id === selectedId);
+        return selectedProduct[0];
+    }
 
     const ClickArrived = (id) => {
         setSelectedId(Number(id));
         setMode('detail');
+    }
+
+    const ModeChanged = (mode) => {
+        setMode(mode);
     }
 
     return (
@@ -34,10 +44,13 @@ function App() {
                 <Top title={title} comment={comment} />
             </Card.Header>
             <Card.Body>
-                <Content />
+                <Content contents={products} onClickToContent={ClickArrived} />
+            </Card.Body>
+            <Card.Body>
+                <Switcher mode={mode} products={getProductById()} />
             </Card.Body>
             <Card.Footer>
-                <Bottom message={message} onClick={ClickArrived} />
+                <Bottom message={message} />
             </Card.Footer>
         </Card>
 

@@ -14,7 +14,7 @@ import { useState } from "react";
 4. id 항목은 사용자에게 보여 주되, 읽기 전용으로 처리하면 됩니다.  
     가짜는 읽기 전용, 진짜 정보는 type="hidden"으로 처리합니다.
 */
-function App({ product, onSubmitUpdate }) {
+function App({ product, onSubmitUpdate, categories }) {
     // 코드에서 반복적인 단어는 변수로 만들어 JSX 문법으로 처리하세요.
     const comment = '수정';
 
@@ -34,16 +34,20 @@ function App({ product, onSubmitUpdate }) {
 
         /* 전개 연산자를 사용하여 과거 데이터를 보존하되, 신규 바뀐 정보만 다시 갱신하기 */
         /* previous 변수는 리액트가 자동으로 넣어 주는 값으로, 이름은 개발자 마음대로 지정하면 됩니다. */
+        //setFormData((previous) => ({ ...previous, [name]: value }));
         setFormData((previous) => {
             const updated = { ...previous, [name]: value };
             console.log("갱신된 값:", updated);
             return updated;
         });
     }
-    //setFormData((previous) => ({ ...previous, [name]: value }));
 
-
-
+    // 이전에 선택한 카테고리 정보와 해당 카테고리의 영문 이름(item.english)과 일치하면 선택이 되도록 해줘야 합니다.
+    const categoryOptions = categories.map((cate, index) =>
+        <option key={index} value={cate.english} selected={formData.category === cate.english}>
+            {cate.korean}
+        </option>
+    );
 
     return (
         <div>
@@ -66,10 +70,9 @@ function App({ product, onSubmitUpdate }) {
                 </InputGroup>
                 <InputGroup className="custom-input-group">
                     <InputGroup.Text className="input-group-text">카테고리</InputGroup.Text>
-                    <Form.Select name="category">
-                        <option value="-" onChange={InputChange}>-- 카테고리를 선택해 주세요.</option>
-                        <option value="bread" selected={formData.category === 'bread'} onChange={InputChange}>빵</option>
-                        <option value="beverage" selected={formData.category === 'beverage'} onChange={InputChange}>음료수</option>
+                    <Form.Select name="category" onChange={InputChange}>
+                        <option value="-">-- 카테고리를 선택해 주세요.</option>
+                        {categoryOptions}
                     </Form.Select>
                 </InputGroup>
                 <InputGroup className="custom-input-group">

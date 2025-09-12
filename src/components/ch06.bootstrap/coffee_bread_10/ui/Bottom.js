@@ -11,6 +11,8 @@ function App({ message }) {
                 <Button variant="secondary">삭제</Button>
                 <Button variant="secondary">카테고리 추가</Button>
             </ButtonGroup>
+            <br /><br />
+            {message}
         </div>
     );
 }
