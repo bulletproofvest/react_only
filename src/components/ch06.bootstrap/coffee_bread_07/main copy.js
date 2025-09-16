@@ -19,7 +19,11 @@ function App() {
         { id: 1, name: "프렌치 바게트", price: 1000, category: 'bread', stock: 111, image: 'french_baguette_01.png', description: "프랑스의 대표적인 빵 중 하나로, 길쭉하고 얇은 형태의 식빵입니다. 바삭하면서도 촉촉한 식감과 진한 맛이 특징입니다." },
         { id: 2, name: "크로와상", price: 2000, category: 'bread', stock: 222, image: 'croissant_02.png', description: "프랑스의 대표적인 베이커리 중 하나로, 층층이 쌓인 반죽에 버터를 추가하여 구워낸 과자입니다." },
         { id: 3, name: "아메리카노", price: 3000, category: 'beverage', stock: 12345, image: 'americano01.png', description: "에스프레소의 쓴 맛과 향을 좋아하는 사람들이 물을 추가해서 즐기는 음료로, 물과 에스프레소의 비율에 따라서 쓴 맛과 진하게 즐길 수 있습니다." },
-        { id: 4, name: "카푸치노", price: 4000, category: 'beverage', stock: 444, image: 'cappuccino01.png', description: "스팀밀크와 거품을 올린 것을 섞어 만든 이탈리아의 전통적인 커피 음료입니다." }
+        { id: 4, name: "카푸치노", price: 4000, category: 'beverage', stock: 444, image: 'cappuccino01.png', description: "스팀밀크와 거품을 올린 것을 섞어 만든 이탈리아의 전통적인 커피 음료입니다." },
+        { id: 5, name: "스폰지 케이크", price: 5000, category: 'cake', stock: 555, image: 'sponge_cake_01.png', description: "가장 일반적인 케이크로, 부드럽고 공기가 많은 스폰지 텍스처를 가지고 있습니다. 일반적으로 크림, 과일, 초콜릿 등 다양한 토핑과 함께 제공됩니다." },
+        { id: 6, name: "초콜릿 케이크", price: 6000, category: 'cake', stock: 666, image: 'chocolate_cake_01.png', description: "초콜릿으로 만든 케이크로, 풍부하고 진한 초콜릿 맛을 가지고 있습니다. 초콜릿으로 만든 케이크 스폰지와 초콜릿으로 만든 크림 또는 가나슈를 사용하여 제작됩니다." },
+        { id: 7, name: "바닐라 마카롱", price: 2500, category: 'macaron', stock: 120, image: 'vanilla_macaron.png', description: "부드럽고 달콤한 바닐라 크림이 들어 있는 프랑스식 디저트입니다. 겉은 바삭하고 속은 촉촉한 식감이 특징입니다." },
+        { id: 8, name: "딸기 마카롱", price: 2800, category: 'macaron', stock: 90, image: 'strawberry_macaron.png', description: "상큼한 딸기 크림이 가득 들어 있는 마카롱으로, 달콤하면서도 상큼한 맛을 즐길 수 있습니다." }
     ]);
 
     /* mode : 현재 상태의 모드 지정  */
@@ -28,14 +32,11 @@ function App() {
 
     /* selectedId는 현재 선택이 된 항목의 상품 id 정보입니다.
     프로그램 최초 시작시 1번이 선택되었다고 가정합니다. */
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedId, setSelectedId] = useState(1);
 
     /* 상품 목록에서 특정 상품 1개를 클릭하였습니다. */
     const ClickArrived = (id) => {
         console.log(`상품 아이디 : ${id}`);
-        if (!id) {
-            return;
-        }
         setSelectedId(Number(id)); // 선택한 상품의 id가 변경이 되었습니다.
         setMode('detail'); /* 상세 보기 모드로 변환 */
     }
@@ -111,7 +112,6 @@ function App() {
 
     /* 사용자가 상품 수정 화면에서 내용을 수정하고, [수정] 버튼을 눌렀습니다. */
     const UpdateData = (formData) => {
-
         // 수정된 상품을 제외하고, 나머지 추출
         const anotherProduct = getExceptData(formData.id);
         // 추출된 상품 목록과 수정된 상품 합치기
@@ -133,6 +133,8 @@ function App() {
     const categoryList = [
         { english: 'bread', korean: '빵' },
         { english: 'beverage', korean: '음료수' },
+        { english: 'cake', korean: '케이크' },
+        { english: 'macaron', korean: '마카롱' },
     ];
 
     const [categories, setCategories] = useState(categoryList);
@@ -152,6 +154,64 @@ function App() {
         setMode('read'); // 모드 변경
     }
 
+    /* 정렬 기능 추가 */
+    /* 기본 정렬 방식으로 name 컬럼으로 오름차순으로 정렬할께요. */
+    const [orderInfo, setOrderInfo] = useState({ column: 'name', ordering: 'asc' });
+
+    /* 정렬 정보를 사용하여 정렬을 수행해주는 함수입니다. */
+    /* category 조회시 영문이 아닌 한글로 수정하도록 합니다. */
+    const Ordering = (orderInformation) => {
+        const column = orderInformation.column; // 정렬할 때 사용할 컬럼
+        const method = orderInformation.ordering; // 정렬 방법(오름차, 내림차)
+
+        const textColumns = ['name', 'category']; // 문자열 컬럼 목록
+
+        const isCharacter = textColumns.includes(column); // 문자열 컬럼인지 판단
+
+        // a와 b는 각각 상품 1개를 의미하는 객체 정보(java의 bean으로 봐도 무방)
+        products.sort((a, b) => {
+            let aValue = a[column];
+            let bValue = b[column];
+
+            // 정렬할 컬럼이 카테고리이면, 한글로 변환해서 비교를 수행합니다.
+            if (column === 'category') {
+                const aCategory = categories.find(c => c.english === a.category);
+                const bCategory = categories.find(c => c.english === b.category);
+
+                aValue = aCategory ? aCategory.korean : a.category; // 한글 이름
+                bValue = bCategory ? bCategory.korean : b.category; // 한글 이름
+            }
+
+            if (isCharacter) { // 문자열 컬럼
+                return method === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+
+            } else { // 숫자형 컬럼
+                return method === 'asc' ? aValue - bValue : bValue - aValue;
+            }
+        });
+    }
+
+
+    /* 사용자가 '정렬할 컬럼' 또는 '정렬 방식'을 선택하면 여기 코드가 실행됩니다. */
+    const ClickOrderBy = (column_name, order_by) => {
+        const newOrderInfo = { column: column_name, ordering: order_by }; // 변경된 정렬 정보
+        setOrderInfo(newOrderInfo); // 변경 내용을 state에 반영시킵니다.
+
+        Ordering(newOrderInfo); // 정렬 함수를 호출합니다.
+    }
+
+    /* 필드 검색 기능 추가 */
+    /* 필드 검색시 내가 선택한 category의 영문 이름이 저장되는 state입니다. */
+    const [filterCategory, setFilterCategory] = useState(null);
+
+    /* 사용자가 카테고리 콤보 박스에서 다른 카테고리를 선택하였습니다. */
+    const CategoryChanged = (changedCategory) => {
+        setFilterCategory(changedCategory); // 선택된 카테고리의 이름이 변경되었습니다.
+
+        // 필터링이 이루어 지면, 정렬 함수를 다시 실행 시켜 화면을 갱신시킵니다.
+        Ordering(orderInfo);
+    }
+
     return (
         <Card>
             <Card.Header>
@@ -159,7 +219,14 @@ function App() {
             </Card.Header>
             <Card.Body>
                 {/* onClickToContent 프롭스가 리턴되고 난 후 ClickArrived 함수가 동작되도록 하겠습니다. */}
-                <Content contents={products} onClickToContent={ClickArrived} categories={categories} />
+                <Content
+                    contents={products}
+                    onClickToContent={ClickArrived}
+                    categories={categories}
+                    onOrderByClick={ClickOrderBy}
+                    orderInfo={orderInfo}
+                    onChangeCategory={CategoryChanged}
+                />
             </Card.Body>
             <Card.Body>
                 <Switcher
